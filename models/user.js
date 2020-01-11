@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema ({
 
+    _id: Schema.Types.ObjectId,
     username: {type: String, required: true},
     password: String,
     tweets: {type: mongoose.Schema.Types.ObjectId, ref: 'Tweets'}

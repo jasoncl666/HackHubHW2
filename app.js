@@ -2,7 +2,6 @@ const express = require('express');
 const index = require('./routes/index');
 const bodyParser = require('body-parser');
 const path = require('path');
-//const tweets = require('tweets');
 const mongoose = require('mongoose');
 
 const app = express();

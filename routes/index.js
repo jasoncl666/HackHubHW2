@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
-const tweets = require('../models/tweets');
+const Tweets = require('../models/tweets');
 const User = require('../models/user');
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const mongoose = require('mongoose');
 
 
 router.get('/', (req, res) => {
@@ -11,15 +12,8 @@ router.get('/', (req, res) => {
     console.log("Get req received!")
 
     res.render('index', {message: 'Welcome'});
-});
 
-router.get('/:username', (req, res) => {
-    // Not Working
-    var username = req.params.username;
-
-    console.log(username);
-
-    res.render('index', {message: 'Welcome'});
+    //res.render('index', {message: 'Welcome '+ username});
 });
 
 router.post('/', (req, res) => {
@@ -41,22 +35,33 @@ router.post('/register', (req, res) => {
     var username = req.body.username,
         password = req.body.password;
 
-    var newUser = new User();
-    newUser.username = username;
-    newUser.password = password;
+    const newUser = new User({
+        _id: new mongoose.Types.ObjectId(),
+        username: username,
+        password: password
+    });
     
-    res.render('index', {message: 'Welcome '+ username});
-
     newUser.save(function (err) {
         if (err) {
           console.log(err);
         }
 
-        console.log("saved: " + username + " " + password);
-        // authentication
-        // send request to show user's main page
-        //var request = new XMLHttpRequest();
-        //request.open('GET', 'http://localhost:3000/'+username, true);
+        console.log("User saved: " + username + " " + password);
+
+        // create new tweets for new user
+        const newTweet = new Tweets({
+            content: "This is my first tweet!",
+            user: newUser._id
+        });
+
+        newTweet.save(function (err) {
+            if (err) {
+                console.log(err);
+            }
+            console.log("Tweet saved!");
+        });
+
+        res.redirect('http://localhost:3000/');
     });
 });
 
