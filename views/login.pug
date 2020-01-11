@@ -1,0 +1,33 @@
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  link(rel='stylesheet' href='css/login.css')
+body
+  .container
+    form(action="http://localhost:3000/register", method="post")
+      .row
+        h2(style='text-align:center') Login To Your Account
+        .col
+          a.fb.btn(href='#')
+            i.fa.fa-facebook.fa-fw
+            |  Login with Facebook
+            img(src="img/fb_icon.png" style="height: 20px; border: 0; float: right; margin-right: 10px")
+          a.wechat.btn(href='#')
+            i.fa.fa-wechat.fa-fw
+            |  Login with Wechat
+            img(src="img/wechat_icon.svg" style="height: 20px; border: 0; float: right; margin-right: 10px")
+          a.google.btn(href='#')
+            i.fa.fa-google.fa-fw
+            |  Login with Google+
+        .col
+          .hide-md-lg
+            p Or sign in manually:
+          input(type='text' name='username' placeholder='Username' required='')
+          input(type='password' name='password' placeholder='Password' required='')
+          input(type='submit' value='Login')
+  .bottom-container
+    .row
+      .col
+        a.btn(href='http://localhost:3000' style='color:white') Main Site
+      .col
+        a.btn(href='#' style='color:white') Create Account
+    
