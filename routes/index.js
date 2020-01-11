@@ -46,7 +46,7 @@ router.post('/register', (req, res) => {
     newUser.password = password;
     
     res.render('index', {message: 'Welcome '+ username});
-    
+
     newUser.save(function (err) {
         if (err) {
           console.log(err);

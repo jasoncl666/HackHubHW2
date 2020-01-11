@@ -20,12 +20,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Set up mongoDB connection
-//const mongoDB = 'mongodb+srv://jasoncl666:6306zpLIU@huckhub-9ntpi.azure.mongodb.net/test?authSource=admin&replicaSet=HuckHub-shard-0&readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=true/hackhub';
 const mongoDB = 'mongodb+srv://jasoncl666:6306zpLIU@huckhub-9ntpi.azure.mongodb.net/hackhub';
-mongoose.connect(mongoDB, function(err) {
-    if (err) throw err;
-    console.log("Successfully connected to MongoDB");
-});
+mongoose.connect(mongoDB)
+.then(() => console.log("Successfully connected to MongoDB"))
+.catch(err => console.log(err));
 
 const db = mongoose.connection;
 
