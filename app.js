@@ -40,6 +40,11 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser()); 
 
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
+});
+
 //Set up mongoDB connection
 const mongoDB = 'mongodb+srv://jasoncl666:6306zpLIU@huckhub-9ntpi.azure.mongodb.net/hackhub';
 mongoose.connect(mongoDB)

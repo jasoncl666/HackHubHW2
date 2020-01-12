@@ -20,6 +20,11 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+router.post('/login', passport.authenticate('local'), (req, res) => {
+
+    res.redirect('http://localhost:3000/account');
+});
+
 router.post('/signup', (req, res) => {
 
     const {username, password} = req.body;
@@ -46,7 +51,7 @@ router.post('/signup', (req, res) => {
             user: newUser._id
         });
 
-        newTweet.save(function (err) {
+        newTweet.save((err) => {
             if (err) {
                 console.log(err);
             }
@@ -61,57 +66,35 @@ router.post('/signup', (req, res) => {
 
         // create session
         passport.authenticate('local')(req, res, () => {
-            return res.redirect('http://localhost:3000/account/' + newUser._id);
+            return res.redirect('http://localhost:3000/account');
         });
-    })
-    /*
-    newUser.save(function (err) {
-        if (err) {
-          console.log(err);
-        }
-
-        console.log("User saved: " + username + " " + password);
-
-        // create new tweets for new user
-        const newTweet = new Tweets({
-            _id: new mongoose.Types.ObjectId(),
-            tweet: [
-                {content: "This is my first tweet!"},
-                {content: "This is my second tweet!"}],
-            user: newUser._id
-        });
-
-        newTweet.save(function (err) {
-            if (err) {
-                console.log(err);
-            }
-            console.log("Tweet saved!");
-
-            // update ref property of newUser to reference this tweet id 
-            User.findByIdAndUpdate(newUser._id, {tweets: newTweet._id}, {new: true}, (err, doc) => {
-                if(err) console.log(err);
-                console.log("update successully!");
-            })
-        });
-
-        // jump to user's account page
-        res.redirect('http://localhost:3000/account/' + newUser._id);
     });
-    */
 });
 
+router.get('/account', (req, res) => {
 
-router.get('/account/:userid', (req, res) => {
+    const userId = req.user._id;
 
-    const userId = req.params.userid;
+    console.log('User ID: ' + userId);
+
+    // newly created tweet, then update mongoDB
+    var content = req.body.tweetcontent;
 
     // populate to Tweets and display
-    var content = req.body.tweetcontent;
-    //console.log("New Tweet: "+ content);
+    Tweets.findOne({user: userId})
+    .populate('tweets')
+    .exec()
+    .then((doc) => {
+        res.render('account', {tweets: doc});
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
 
-    //res.render('account', {userId: userId});
-
-    res.render('index', {message: 'Welcome '+ userId});
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/login');
 });
 
 module.exports = router;
