@@ -3,6 +3,11 @@ const index = require('./routes/index');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
+const Tweets = require('./models/tweets');
+const User = require('./models/users');
 
 const app = express();
 
@@ -17,6 +22,23 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 })); 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// setup session middleware
+app.use(session({
+    secret: 'webdxd',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false }
+}));
+
+//Apply passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Config passport middleware
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser()); 
 
 //Set up mongoDB connection
 const mongoDB = 'mongodb+srv://jasoncl666:6306zpLIU@huckhub-9ntpi.azure.mongodb.net/hackhub';

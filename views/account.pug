@@ -4,7 +4,7 @@ head
  link(rel='stylesheet' href='css/account.css')
 body
   .tweetPostContainer
-    form(action="http://localhost:3000/", method="post")
+    form(action="http://localhost:3000/"+!{userId}, method="post")
       .row
         input(type='text' name='tweetcontent' placeholder='Your Tweet' required='')
         input(type='submit' value='Send')
