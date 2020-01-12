@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const TweetsSchema = new Schema({
 
+	_id: Schema.Types.ObjectId,
     tweet: [{
 		content: {type: String, required: true, maxlength: 500},
 		createdAt: {type: Date, required: true, default: Date.now}

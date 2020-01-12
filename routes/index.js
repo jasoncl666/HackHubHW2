@@ -50,7 +50,10 @@ router.post('/register', (req, res) => {
 
         // create new tweets for new user
         const newTweet = new Tweets({
-            content: "This is my first tweet!",
+            _id: new mongoose.Types.ObjectId(),
+            tweet: [
+                {content: "This is my first tweet!"},
+                {content: "This is my second tweet!"}],
             user: newUser._id
         });
 
@@ -59,15 +62,41 @@ router.post('/register', (req, res) => {
                 console.log(err);
             }
             console.log("Tweet saved!");
+
+            // update ref property of newUser to reference this tweet id 
+            User.findByIdAndUpdate(newUser._id, {tweets: newTweet._id}, {new: true}, (err, doc) => {
+                if(err) console.log(err);
+                console.log("update successully!");
+            })
+
         });
 
-        res.redirect('http://localhost:3000/');
+        // jump to user's account page
+        res.redirect('http://localhost:3000/account/' + newUser._id);
     });
 });
 
 
-router.get('/account', (req, res) => {
-    res.render('account');
+router.get('/account/:userid', (req, res) => {
+
+    const userId = req.params.userid;
+
+    // populate to Tweets and display
+
+    var content = req.body.tweetcontent;
+
+    console.log("New Tweet: "+ content);
+
+    res.render('account', {userId: userId});
+
+    /*
+    const userId = req.params.user_id;
+     when post request from Submit is received: 
+        1. tweet content should be saved to MongoDB
+        2. user
+    
+    
+    res.render('account', {message: 'Account', userId: userId});*/
 });
 
 module.exports = router;
