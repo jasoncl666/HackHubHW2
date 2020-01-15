@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 20px;
+}
+  
+* {
+    box-sizing: border-box;
+}
+
+/* style the container */
+.container {
+    position: relative;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px 0 30px 0;
+    height: auto;
+    overflow: auto;
+} 
+
+/* Two-column layout */
+.col {
+    float: left;
+    margin: auto;
+    padding: 0 50px;
+    margin-top: 6px;
+    height: auto;
+    overflow: auto;
+}
+
+.nav {
+    width: 30%;
+    background-color: burlywood;
+}
+
+.tweet {
+    width: 70%;
+    background-color: ghostwhite;
+}
+
+/* Two-row layout */
+.row {
+    width: 100%;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    margin: 5px 0;
+    opacity: 0.85;
+    display: inline-block;
+    font-size: 17px;
+    line-height: 20px;
+    text-decoration: none; /* remove underline from anchors */
+}
+
+/* style the submit button */
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+  
+input[type=submit]:hover {
+    background-color: #45a049;
+    opacity: 1;
+}
+
+.tweetDisplay {
+    height: max-content;
+}
+

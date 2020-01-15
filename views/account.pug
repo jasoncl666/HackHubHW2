@@ -3,13 +3,17 @@ head
  meta(name='viewport' content='width=device-width, initial-scale=1')
  link(rel='stylesheet' href='css/account.css')
 body
-  .tweetPostContainer
-    form(action="http://localhost:3000/account", method="post")
-      .row
-        input(type='text' name='tweetcontent' placeholder='Your Tweet' required='')
-        input(type='submit' value='Send')
-  .tweetDisplayContainer
-    each t in tweets.tweet
-      #tweetContainer
-        h1= t.content
+  .container
+    .col.nav
+      .row.userPicContainer
+      .row.routeList
+    .col.tweet
+      .row.tweetPost
+        form(action="http://localhost:3000/account", method="post")
+          textarea(name="tweetContnet", rows="6", maxlength="500")
+          input(type="submit" value="Post Tweet")
+      .row.tweetDisplay
+        each t in tweets.tweet
+          #tweetContainer
+            h3= t.content
       

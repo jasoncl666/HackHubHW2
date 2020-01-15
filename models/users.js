@@ -7,6 +7,11 @@ const UserSchema = new Schema ({
     _id: Schema.Types.ObjectId,
     username: {type: String, required: true},
     password: String,
+    profile: {
+        email: String,
+        age: Number,
+        photoURI: String
+    },
     tweets: {type: mongoose.Schema.Types.ObjectId, ref: 'Tweets'}
 });
 

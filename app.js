@@ -1,13 +1,20 @@
 const express = require('express');
-const index = require('./routes/index');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
+
+/* Models */
 const Tweets = require('./models/tweets');
 const User = require('./models/users');
+
+/* routing files */
+const index = require('./routes/index');
+const account = require('./routes/account');
+const login = require('./routes/login');
+const profile = require('./routes/profile'); 
 
 const app = express();
 
@@ -54,5 +61,8 @@ mongoose.connect(mongoDB)
 const db = mongoose.connection;
 
 app.use('/', index);
+app.use('/', account);
+app.use('/', login);
+app.use('/', profile);
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
