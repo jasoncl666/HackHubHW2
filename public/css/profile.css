@@ -27,18 +27,12 @@ body {
     overflow: auto;
 }
 
-/* Tweet Col */
-.tweet {
+.profile {
     width: 70%;
     background-color: ghostwhite;
 }
 
-/* Two-row layout */
-.row {
-    width: 100%;
-}
-
-input, textarea, .btn {
+input, .btn {
     width: 100%;
     padding: 12px;
     border: none;
@@ -63,18 +57,13 @@ input[type=submit]:hover {
     opacity: 1;
 }
 
-.tweetDisplay {
-    height: max-content;
-}
-
 /* Nav Col */
 .nav {
     width: 30%;
     background-color: burlywood;
 }
 
-
-.profile, .logout {
+.account, .logout {
     background-color: gray;
     color: white;
 }

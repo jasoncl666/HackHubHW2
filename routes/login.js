@@ -65,4 +65,10 @@ router.post('/signup', (req, res) => {
     });
 });
 
+/* logout function */
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/login');
+});
+
 module.exports = router;

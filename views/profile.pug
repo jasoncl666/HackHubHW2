@@ -1,0 +1,22 @@
+head
+  title Profile!
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  link(rel='stylesheet' href='css/profile.css')
+body
+  .container
+    .col.nav
+      .row.userPicContainer
+      .row.routeList
+        a.account.btn(href="/account")
+          i.fa.fa-profile.fa-fw
+          |  Profile
+        a.logout.btn(href="/logout")
+          i.fa.fa-logout.fa-fw
+          |  Logout
+    .col.profile
+      form(action="/profile", method="post")
+        input(type='text' name='email' placeholder='email' required='')
+        input(type='text' name='age' placeholder='age' required='')
+        input(type='text' name='photoURI' placeholder='photoURI' required='')
+        input(type='submit' value='Update')
+  

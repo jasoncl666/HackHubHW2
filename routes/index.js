@@ -10,9 +10,4 @@ router.get('/', (req, res) => {
     //res.render('index', {message: 'Welcome '+ username});
 });
 
-router.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/login');
-});
-
 module.exports = router;
