@@ -42,4 +42,18 @@ router.post('/account', utils.requireLogin, (req, res) => {
     });
 });
 
+
+router.post('/account/delete', utils.requireLogin, (req, res) => {
+
+    const {tweetsID, tID}= req.body;
+
+    Tweets.update({_id: tweetsID}, {$pull: {tweet: {_id: tID}}}).exec()
+    .then((doc) => {
+        res.redirect('/account');
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
+
 module.exports = router;

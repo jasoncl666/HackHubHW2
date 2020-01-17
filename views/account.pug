@@ -7,22 +7,26 @@ body
     .col.nav
       .row.userPicContainer
       .row.routeList
-        a.profile.btn(href="/profile")
+        a.profile.btn(href='/profile')
           i.fa.fa-profile.fa-fw
           |  Profile
-        a.logout.btn(href="/logout")
+        a.logout.btn(href='/logout')
           i.fa.fa-logout.fa-fw
           |  Logout
     .col.tweet
       .row.tweetPost
-        form(action="/account", method="post")
-          textarea(name="tweetContnet", rows="6", maxlength="500")
-          input(type="submit" value="Post Tweet")
+        form(action='/account', method='post')
+          textarea(name='tweetContnet', rows='6', maxlength='500')
+          input(type='submit' value='Post Tweet')
       .row.tweetDisplay
+        -var tweetsID= tweets._id
         each t in tweets.tweet
           .tweetContainer
             h3= t.content
-            button.deleteBtn(onclick='f('+ t.content +')') Delete
+            form(action='/account/delete', method='post')
+              input(type='hidden', name='tweetsID', value=tweetsID)
+              input(type='hidden', name='tID', value=t._id)
+              button.deleteBtn(type='submit') Delete
   script.
     var f = function(t){
       console.log('Delete tweet: '+t);
