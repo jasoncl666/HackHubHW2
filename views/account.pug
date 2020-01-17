@@ -20,6 +20,12 @@ body
           input(type="submit" value="Post Tweet")
       .row.tweetDisplay
         each t in tweets.tweet
-          #tweetContainer
+          .tweetContainer
             h3= t.content
+            button.deleteBtn(onclick='f('+ t.content +')') Delete
+  script.
+    var f = function(t){
+      console.log('Delete tweet: '+t);
+    }
+
       
