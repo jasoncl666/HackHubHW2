@@ -4,6 +4,8 @@ head
   link(rel='stylesheet' href='css/account.css')
 body
   .container
+    -var tweetsID= tweets._id
+    h1= 'Welcome to your Account!' 
     .col.nav
       .row.userPicContainer
       .row.routeList
@@ -16,20 +18,41 @@ body
     .col.tweet
       .row.tweetPost
         form(action='/account', method='post')
-          textarea(name='tweetContnet', rows='6', maxlength='500')
+          textarea(name='tweetContent', rows='6', maxlength='500')
           input(type='submit' value='Post Tweet')
       .row.tweetDisplay
-        -var tweetsID= tweets._id
         each t in tweets.tweet
           .tweetContainer
             h3= t.content
             form(action='/account/delete', method='post')
               input(type='hidden', name='tweetsID', value=tweetsID)
               input(type='hidden', name='tID', value=t._id)
+              textarea(name='editContent', rows='3', maxlength='500')
               button.deleteBtn(type='submit') Delete
+              button.editBtn(type='button') Edit
+              button.updateBtn(type='submit', formaction='/account/edit') Update
+              button.cancelBtn(type='button') Cancel
   script.
-    var f = function(t){
-      console.log('Delete tweet: '+t);
+    function copyContent() {
+      document.getElementByName('editedContent').value =  
+      document.getElementById("myContentEditable").innerHTML;
+      return true;
+    }
+
+    function showEditContainer() {
+      document.getElementByName('editContent').style.display = inline;
+      document.getElementByClass('updateBtn').style.display = inline;
+      document.getElementByClass('cancelBtn').style.display = inline;
+      document.getElementByClass('editBtn').style.display = none;
+      return true
+    }
+
+    function cancelEdit(){
+      document.getElementByName('editContent').style.display = none;
+      document.getElementByClass('updateBtn').style.display = none;
+      document.getElementByClass('cancelBtn').style.display = none;
+      document.getElementByClass('editBtn').style.display = inline;
+      return true
     }
 
       

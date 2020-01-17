@@ -4,12 +4,13 @@ head
   link(rel='stylesheet' href='css/profile.css')
 body
   .container
+    h1= username + '\'s Proile'
     .col.nav
       .row.userPicContainer
       .row.routeList
         a.account.btn(href="/account")
-          i.fa.fa-profile.fa-fw
-          |  Profile
+          i.fa.fa-account.fa-fw
+          |  Account
         a.logout.btn(href="/logout")
           i.fa.fa-logout.fa-fw
           |  Logout

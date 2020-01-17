@@ -24,15 +24,13 @@ router.post('/account', utils.requireLogin, (req, res) => {
     const userId = req.user._id;
 
     // newly created tweet, then update mongoDB
-    const content = req.body.tweetContnet;
+    const content = req.body.tweetContent;
 
     console.log('New Tweet: ' + content);
 
     // populate to Tweets and display
     Tweets.findOne({user: userId})
     .populate('tweets').exec().then((doc) => {
-        console.log(doc._id);
-
         Tweets.findByIdAndUpdate(doc._id, {$push:{tweet: {content: content}}}, {new: true}, (err, doc) => {
             if(err) console.log(err);
             return res.redirect('/account');
@@ -42,7 +40,7 @@ router.post('/account', utils.requireLogin, (req, res) => {
     });
 });
 
-
+/* Handles tweet delete function */
 router.post('/account/delete', utils.requireLogin, (req, res) => {
 
     const {tweetsID, tID}= req.body;
@@ -54,6 +52,22 @@ router.post('/account/delete', utils.requireLogin, (req, res) => {
     .catch((err) => {
         console.log(err);
     });
+    
 });
+
+/* Handles tweet edit function */
+router.post('/account/edit', utils.requireLogin, (req, res) => {
+
+    const {tweetsID, tID, editContent}= req.body;
+
+    Tweets.update({_id: tweetsID, 'tweet._id': tID}, {$set: {'tweet.$.content': editContent}}).exec()
+    .then((doc) => {
+        res.redirect('/account');
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
+
 
 module.exports = router;

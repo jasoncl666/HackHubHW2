@@ -55,7 +55,6 @@ input, textarea, .btn {
 input[type=submit] {
     background-color: #4CAF50;
     color: white;
-    cursor: pointer;
 }
   
 input[type=submit]:hover {
@@ -71,9 +70,17 @@ h3 {
     display: inline-block;
 }
 
-.deleteBtn {
+Button {
     float: right;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+    margin-right: 1%;
+    opacity: 0.85;
+    border: none;
+    border-radius: 4px;
 }
+
 /* Nav Col */
 .nav {
     width: 30%;

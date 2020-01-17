@@ -4,8 +4,16 @@ const User = require('../models/users');
 const utils = require('../utils');
 
 router.get('/profile', utils.requireLogin, (req, res) => {
-    console.log("getting profile");
-    res.render('profile');
+
+    const userId = req.user._id;
+    
+    User.findOne({_id: userId}).exec()
+    .then((doc) => {
+        res.render('profile', {username: doc.username});
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 });
 
 router.post('/profile', utils.requireLogin, (req, res) => {
