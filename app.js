@@ -14,7 +14,7 @@ const User = require('./models/users');
 const index = require('./routes/index');
 const account = require('./routes/account');
 const login = require('./routes/login');
-const profile = require('./routes/profile'); 
+const profile = require('./routes/profile');
 
 const app = express();
 
