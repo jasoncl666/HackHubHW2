@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const passport = require('./passport');
+const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -11,7 +11,7 @@ const Tweets = require('./models/tweets');
 const User = require('./models/users');
 
 /* routing files */
-const index = require('./routes/index');
+const tweets = require('./routes/tweets');
 const account = require('./routes/account');
 const profile = require('./routes/profile');
 const auth = require('./routes/auth');
@@ -30,6 +30,11 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 })); 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// passport setting
+app.use(passport.initialize());
+require('./passport');
+
+
 app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
@@ -43,8 +48,8 @@ mongoose.connect(mongoDB)
 
 const db = mongoose.connection;
 
-app.use('/', index);
-app.use('/', account);
+app.use('/', tweets);
+//app.use('/', account);
 app.use('/', auth);
 app.use('/', profile);
 
