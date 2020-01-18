@@ -1,3 +1,8 @@
+/**
+ * Authentication with Sesson 
+ * 
+ */
+
 const express = require('express');
 const router = express.Router();
 const Tweets = require('../models/tweets');

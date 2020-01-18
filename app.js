@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const passport = require('passport');
+const passport = require('./passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -15,6 +15,7 @@ const index = require('./routes/index');
 const account = require('./routes/account');
 const login = require('./routes/login');
 const profile = require('./routes/profile'); 
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -38,7 +39,7 @@ app.use(session({
     cookie: { secure: false }
 }));
 
-//Apply passport middleware
+//Apply passport middleware with Sesson
 app.use(passport.initialize());
 app.use(passport.session());
 
