@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-const passport = require('passport');
+const passport = require('./passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -13,8 +13,8 @@ const User = require('./models/users');
 /* routing files */
 const index = require('./routes/index');
 const account = require('./routes/account');
-const login = require('./routes/login');
 const profile = require('./routes/profile');
+const auth = require('./routes/auth');
 
 const app = express();
 
@@ -29,23 +29,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 })); 
 app.use(express.static(path.join(__dirname, 'public')));
-
-// setup session middleware
-app.use(session({
-    secret: 'webdxd',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false }
-}));
-
-//Apply passport middleware with Sesson
-app.use(passport.initialize());
-app.use(passport.session());
-
-//Config passport middleware
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser()); 
 
 app.use((req, res, next) => {
     res.locals.user = req.user;
@@ -62,7 +45,7 @@ const db = mongoose.connection;
 
 app.use('/', index);
 app.use('/', account);
-app.use('/', login);
+app.use('/', auth);
 app.use('/', profile);
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
